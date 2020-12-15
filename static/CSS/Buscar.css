@@ -1,0 +1,114 @@
+:root {
+    --primary: #ec6a43;
+    --light: #ffffff;
+    --grey: #efefef;
+}
+
+body {
+    background: rgb(245, 108, 17) url(Cafeteria3.png);
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.bg-primary { background-color: var(--primary) !important; }
+
+.bg-light { background-color: var(--light) !important; }
+
+.bg-grey { background-color: var(--grey) !important; }
+
+.bg-mix { background: linear-gradient(180deg, var(--light) 50%, var(--grey) 0); }
+
+.btn-primary {
+    background-color: var(--primary);
+    border: 0;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary);
+}
+
+#sidebar-container {
+    min-height: 100vh;
+}
+  
+#sidebar-container .logo{
+    padding: 0.875rem 1.25rem;
+}
+  
+#sidebar-container .menu {
+    width: 15 rem;
+}
+
+#content {
+    overflow-y: auto;
+    height: 100vh;
+    padding-bottom: 5rem;
+}
+
+.avatar {
+    max-width: 35px;
+}
+
+.btn-search {
+    right: 0;
+}
+
+.stat {
+    border-right: 1px solid var(--grey);
+}
+
+.buscar{
+    display: fixed;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: #069;
+    padding: 10px;
+    height: 80px;
+    border-radius: 40px;
+}
+
+.buscar_texto{
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+    font-size: 20px;
+    float: left;
+    line-height: 60px;
+    transition: 0.3s;
+    width: 0;
+}
+
+
+@media (max-width: 768px) {
+    #sidebar-container {
+      display: none;
+    }
+    .stat {
+        border: 0;
+    }
+  }
+ @media screen and (min-width:480px){
+    .buscar:hover > .buscar_texto{
+        width: 190px
+    }
+}
+
+@media screen and (min-width:768px){
+    .buscar:hover > .buscar_texto{
+        width: 300px
+    }
+}
+
+@media screen and (min-width:1024px){
+    .buscar:hover > .buscar_texto{
+        width: 500px
+    }
+}
+ 

@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    background: darkcyan url(../IMAGES/fondo2.jpg) no-repeat center top ;
+}
+
+main{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.content-all{
+    width: 100%;
+    max-width: 100%;
+    background: chocolate;
+    margin: auto;
+    margin-top: 80px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.content-all label{
+    position: fixed;
+    width: 100%;
+    max-width: 100%;
+    top: 2px;
+    font-size: 26px;
+    color: white;
+}
+
+.content-all h4{
+    position: fixed;
+    width: 100%;
+    max-width: 100%;
+    top: 2px;
+    font-size: 26px;
+    text-align: center;
+    color: white;
+}
+
+header{
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    background: chocolate;
+    left: 0;
+    top: 0;
+}
+
+#check_menu{
+    display: none;
+}
+
+#check_menu:checked ~ .menu_list{
+     width: 500px;
+}
+
+.menu_list{
+    position: fixed;
+    width: 250px;
+    height: 100vh;
+    background: rgba(255, 115, 0, 0.781);
+    top: 40px;
+}
+
+.menu_list li{
+    list-style: none;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.menu_list li:hover{
+    background: chocolate;
+    border-bottom: 2px solid black;
+
+}
+
+.content-ventana{
+    position: fixed;
+    left: 250px;
+    background: rgb(211, 206, 206);
+    top: 40px;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+}
+
+article{
+    padding: 10px;
+}
