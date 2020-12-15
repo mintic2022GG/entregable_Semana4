@@ -51,10 +51,10 @@ def crearusuario():
         if 'nombre' in session:
             return render_template('index.html')
         else:
-            return render_template('index.html')
+            return render_template('crearuser.html')
     else:
         nombre = request.form['nmNombreRegistro']
-        correo = request.form['nmCorreoRegistro']
+        #correo = request.form['nmCorreoRegistro']
         password = request.form['nmPasswordRegistro']
         password_encode = password.encode("utf-8")
         password_encriptado = bcrypt.hashpw(password_encode, semilla)
@@ -65,7 +65,8 @@ def crearusuario():
 
 
         #PREPARA EL QUERY PARA INSERCION
-        sQuery = "INSERT into Login values(correo,password,nombre) VALUES (%s, %s, %s)"
+        #sQuery = "INSERT INTO Login values('{n}',{email},{pwd})".format(n = nombre, email=correo, pwd=password)
+        sQuery = "INSERT INTO login1 values('{n}',{pwd})".format(n = nombre, pwd=password)
         # Ejecuta la sentencia
         cursor.execute(sQuery)
 
