@@ -5,7 +5,7 @@
 }
 
 body {
-    background: rgb(245, 108, 17) url(Cafeteria3.png);
+    background: #DCDDDF url(../IMAGENES/Cafeteria3.png) no-repeat center top ;;
 }
 
 a:hover {

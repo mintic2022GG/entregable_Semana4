@@ -7,7 +7,7 @@ productos = [
     {nombre: 'perico', valor: 2000},
     
     
-]
+];
 
 busqueda = document.querySelector('#busqueda');
 resultado = document.querySelector('#resultado');
@@ -24,10 +24,11 @@ filtrar = ()=>{
             resultado.innerHTML;
         }
     }
+}
         if(resultado.innerHTML === ''){
           resultado.innerHTML += `
             <li>Producto no encontrado...</li>`;  
         }
-}
+
 
 busqueda.addEventListener('keyup',filtrar);

@@ -35,10 +35,10 @@
               
               
 
-              <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/actuEliCajero">
+              <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="../templates/ActElimCajeros.html">
                   Actualizar o Eliminar Cajero</a><br>
 
-              <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/paginaPrinAdmin">
+              <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="../templates/PaginaInicial_Admin.html">
                   Volver a Inicio </a><br>
           </div>
       </div>
@@ -90,30 +90,30 @@
                     </div>
                 </div>
             </section>
-
+            <form action = "/savedetails" method="post">
             <section>
                 <div class="container">
                     <div class="row">
                        <div>
                         <br><br><br>
                         &nbsp;
-                        <input type="text" id="Nombre" size="70" maxlength="70" placeholder="Nombre del Cajero"><br><br>
+                        <input type="text" name="Nombre" id="Nombre" size="70" maxlength="70" placeholder="Nombre del Cajero"><br><br>
                         &nbsp;
-                        <input type="text" id="Cedula" size="70" maxlength="70" placeholder="Cédula"><br><br>
+                        <input type="text" name="Cedula" id="Cedula" size="70" maxlength="70" placeholder="Cédula"><br><br>
                         &nbsp;
-                        <input type="text" id="Correo" size="70" maxlength="70" placeholder="Correo electrónico"><br><br>
+                        <input type="text" name="Correo" id="Correo" size="70" maxlength="70" placeholder="Correo electrónico"><br><br>
                         &nbsp;
-                        <input type="text" id="Contraseña" placeholder="Contraseña"><br><br>
+                        <input type="text" name="Contraseña" id="Contraseña" placeholder="Contraseña"><br><br>
                         &nbsp;
                         <label for="username">Subir foto: </label>&nbsp;<input type="file"><br><br>
                         &nbsp;
-                        <input type="submit" id="Agregar" value="Agregar Empleado" >
+                        <input type="submit" id="Agregar" value="Agregar Cajero" >
                                                 
                     </div>
                 </div>
                 </div>
             </section>
-
+          </form>
       </div>
 
       </div>

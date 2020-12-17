@@ -10,12 +10,12 @@ body {
 
 .login-box{
     width: 320px;
-    height: 445px;
+    height: 435px;
     background: #DCDDDF url(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
     color: #000;
     border-top: solid .5rem #F39B53;
-	box-shadow: 0 0 .5rem #8A8C8C;
-    top: 50%;
+    box-shadow: 0 0 .5rem #8A8C8C;
+    top: 40%;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
@@ -31,7 +31,7 @@ body {
     color: #000;
     border-top: solid .5rem #F39B53;
 	box-shadow: 0 0 .5rem #8A8C8C;
-    top: 50%;
+    top: 40%;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);

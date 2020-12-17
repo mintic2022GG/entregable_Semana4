@@ -7,7 +7,7 @@ function iniciar() {
 function validaUsername(){
     var elemento = document.getElementById("username").value;
     if( elemento === null || elemento.length === 0 || /^\s+$/.test(elemento) ) {
-        alert('[ERROR] El campo debe tener algun valor');
+        alert('[ERROR] El campo Username debe tener algun valor');
         return false;
     }
     return true;

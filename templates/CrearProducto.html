@@ -35,10 +35,13 @@
               
               
 
-              <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/actelimproducto">
+              <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="../templates/ActualizarEliminarProducto.html">
                   Actualizar o Eliminar producto</a><br>
+                  
+               <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="../templates/Buscar.html">
+                  Buscar producto</a><br>   
 
-              <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/paginaPrinCajero">
+              <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="../templates/PaginaInicial_Cajero.html">
                   Volver a Inicio </a><br>
           </div>
       </div>
@@ -62,7 +65,7 @@
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="../static/IMAGENES/Login-usuario.png" width="40" height="60" class="img-fluid rounded-circle avatar mr-2"
                     alt="https://generated.photos/" />
-                  Usuario administrador
+                  Usuario cajero
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Mi perfil</a>
@@ -84,36 +87,36 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-9 col-md-8">
-                          <h1 class="font-weight-bold mb-0">Registro de artículo  </h1>
+                          <h1 class="font-weight-bold mb-0">Crear Producto  </h1>
                           
                         </div>
                     </div>
                 </div>
             </section>
-
+            <form action = "/savedetails1" method="post">
             <section>
                 <div class="container">
                     <div class="row">
                        <div>
                         <br><br><br>
                         &nbsp;
-                        <input type="text" size="70" maxlength="70" placeholder="Nombre"><br><br>
+                        <input type="text" name="Nombre" id="Nombre" size="70" maxlength="70" placeholder="Nombre"><br><br>
                         &nbsp;
-                        <input type="text" size="70" maxlength="70" placeholder="Referencia"><br><br>
+                        <input type="text" name="Referencia" id="Referencia" size="70" maxlength="70" placeholder="Referencia"><br><br>
                         &nbsp;
-                        <input type="text" placeholder="Cantidad"><br><br>
+                        <input type="text" name="Cantidad" id="Cantidad" placeholder="Cantidad"><br><br>
                         &nbsp;
-                        <input type="text" placeholder="Precio"><br><br>
+                        <input type="text" name="Precio" id="Precio" placeholder="Precio"><br><br>
                         &nbsp;
                         <input type="text" placeholder="Adjuntar imagen">&nbsp; <input type="file"><br><br>
                         &nbsp;
-                        <input type="submit" id="Agregar" value="Agregar artículo">
+                        <input type="submit" id="Agregarproducto" value="Agregar producto">
                                                 
                     </div>
                 </div>
              </div>
             </section>
-
+          </form>
       </div>
 
       </div>

@@ -1,13 +1,13 @@
 window.onload = iniciar; 
 
 function iniciar() {
-    document.getElementById("Agregar").addEventListener('click', validar, false);
+    document.getElementById("Agregarproducto").addEventListener('click', validar, false);
 }
 
 function validaNombre(){
     var elemento = document.getElementById("Nombre").value;
     if( elemento === null || elemento.length === 0 || /^\s+$/.test(elemento) ) {
-        alert('[ERROR] El campo debe tener algun valor');
+        alert('[ERROR] El campo Nombre debe tener algun valor');
         return false;
         }    
     return true;
@@ -16,7 +16,7 @@ function validaNombre(){
 function validaReferencia(){
     var elemento = document.getElementById("Referencia").value;
     if( elemento === null || elemento.length === 0 || /^\s+$/.test(elemento) ) {
-        alert('[ERROR] El campo debe tener algun valor');
+        alert('[ERROR] El campo Referencia debe tener algun valor');
         return false;
         }    
     return true;
@@ -25,11 +25,11 @@ function validaReferencia(){
 function validaCantidad(){
     var elemento = document.getElementById("Cantidad").value;
     if( elemento === null || elemento.length === 0 || /^\s+$/.test(elemento) ) {
-        alert('[ERROR] El campo debe tener algun valor');
+        alert('[ERROR] El campo Cantidad debe tener algun valor');
         return false;
         } 
     else if(isNaN(elemento)){
-        alert('[ERROR] El campo debe tener valores numericos');
+        alert('[ERROR] El campo Cantidad debe tener valores numericos');
         return false;
     }
     return true;
@@ -38,11 +38,11 @@ function validaCantidad(){
 function validaPrecio(){
     var elemento = document.getElementById("Precio").value;
     if( elemento === null || elemento.length === 0 || /^\s+$/.test(elemento) ) {
-        alert('[ERROR] El campo debe tener algun valor');
+        alert('[ERROR] El campo Precio debe tener algun valor');
         return false;
         } 
     else if(isNaN(elemento)){
-        alert('[ERROR] El campo debe tener valores numericos');
+        alert('[ERROR] El campo Precio debe tener valores numericos');
         return false;
     }
     return true;
