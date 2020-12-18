@@ -1,19 +1,57 @@
 #Importacion de librerias en Flask
 # Flask: funciones de microframework
 #render_template: permite renderizar los HTML en el servidor
-from flask import Flask,redirect,url_for,render_template,request,g,session,flash
-import sqlite3
+
+# bibliotecas nativas de python 
 import os
+import sqlite3
+
+# flask
+from flask import Flask,redirect,url_for,render_template,request,g,session,flash
+
+# paquetes para enviar mensajes al correo 
 from flask_mail import Mail,Message
+
+# manejo de SQL
+from flask_sqlalchemy import SQLAlchemy
+
+# manejo de las sesiones
+from flask_login import LoginManager, logout_user, current_user, login_user, login_required
+
+
+from werkzeug.urls import url_parse
+
 import bcrypt
+
 currentdirectory = os.path.dirname(os.path.abspath(__file__))
-DATABASE= '/home/diegoaaa/Desktop/pagina web/Proyecto_Cafeteria - copia-20201211T023939Z-001/Proyecto_Cafeteria - MAIL+BACKEND/database.db'
+
+# TODO:Use a relative path
+DATABASE_PATH = 'sqlite:///cafeteria.db'
+
 #Establezco el objeto Flask
-app=Flask(__name__)
+# esta es la aplicaicon principal
+app=Flask(__name__)     
+
+# ----------------------------------------------------------------------------
+# gestor de la base de datos
+# ----------------------------------------------------------------------------
+# configuracion para el acceso a la base de datos
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_PATH
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# se crea gestor de base de datos que permite el acceso, modificacion de la base
+# de datos
+db = SQLAlchemy(app)
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# manejo de las sesiones
+# ----------------------------------------------------------------------------
+login_manager = LoginManager(app)
+login_manager.login_view = "loginAdmin"
+# ----------------------------------------------------------------------------
 
 
 ##este el codigo para el envio del correo
-
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'correo@gmail.com'
@@ -28,18 +66,67 @@ app.secret_key="appLogin"
 ## Creo semilla
 semilla = bcrypt.gensalt()
 
+## ---------------------------------------------------------
+# llamamos los models
+# ---------------------------------------------------------#
+from models import *
+# ---------------------------------------------------------#
+
+## ---------------------------------------------------------
+# llamamos los formularios para login, registros y agregar
+# productos
+# ---------------------------------------------------------#
+from forms import LoginCajeroForm, LoginAdminForm
+## ---------------------------------------------------------
+
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    for user in users:
+        if user.id == int(user_id):
+            return user
+    return None
+
 
 @app.route("/")
+# @app.route("/login", methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
+
 @app.route("/loginAdmin")
 def loginAdmin():
-    return render_template('loginAdmin.html')
-@app.route("/loginCajero")
+    if current_user.is_authenticated:
+        return redirect(url_for('PaginaInicial_Admin.html'))
+    form = LoginAdminForm()
+    if form.validate_on_submit():
+        user = User.get_by_username(form.username.data)
+        if user is not None and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('loginAdmin')
+            return redirect(next_page)
+    return render_template('loginAdmin.html', form=form)
+
+
+@app.route("/loginCajero", methods=['GET', 'POST'])
 def loginCajero():
-    return render_template('loginCajero.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('PaginaInicial_Cajero.html'))
+    form = LoginCajeroForm()
+    if form.validate_on_submit():
+        user = User.get_by_username(form.username.data)
+        if user is not None and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('loginCajero')
+            return redirect(next_page)
+    return render_template('loginCajero.html', form=form)
+
 #Recuperacion de Contrasena
-@app.route("/olvidaste")
+@app.route("/olvidaste", methods=['GET', 'POST'])
 def olvidaste():
     return render_template('RecupContra.html')
 
@@ -142,3 +229,8 @@ def buscarproducto():
 if __name__ == '__main__':
     #Lanzar el servidor
     app.run(port=5000,debug=True)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
