@@ -41,7 +41,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     cedula = db.Column(db.String(80), unique=True, nullable=False)
-    type_user = db.Column(db.String(80), unique=True, nullable=False) # cajero o admin
+    type_user = db.Column(db.String(80), unique=False, nullable=False) # cajero o admin
     password = db.Column(db.String(128), nullable=False)
 
     def __repr__(self):
@@ -98,6 +98,17 @@ class User(db.Model, UserMixin):
         """
         return User.query.filter_by(email=email).first()
 
+    @staticmethod
+    def get_by_cedula(cedula):
+        """[summary]
+
+        Args:
+            email ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        return User.query.filter_by(cedula=cedula).first()
 
     @staticmethod
     def get_by_username(username):
@@ -126,6 +137,7 @@ class Product(db.Model):
     description = db.Column(db.Text)
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric, nullable=False)
+    # path_image = db.Column(db.String(256), unique=True, nullable=True)
 
     def __repr__(self):
         """[summary]
