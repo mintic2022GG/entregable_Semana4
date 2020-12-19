@@ -94,10 +94,11 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
 
-@app.route("/loginAdmin")
+
+@app.route("/loginAdmin", methods=['GET', 'POST'])
 def loginAdmin():
     if current_user.is_authenticated:
-        return redirect(url_for('PaginaInicial_Admin.html'))
+        return redirect(url_for('paginaPrinAdmin'))
     form = LoginAdminForm()
     if form.validate_on_submit():
         user = User.get_by_username(form.username.data)
@@ -105,7 +106,7 @@ def loginAdmin():
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('loginAdmin')
+                next_page = url_for('paginaPrinAdmin')
             return redirect(next_page)
     return render_template('loginAdmin.html', form=form)
 
@@ -113,7 +114,7 @@ def loginAdmin():
 @app.route("/loginCajero", methods=['GET', 'POST'])
 def loginCajero():
     if current_user.is_authenticated:
-        return redirect(url_for('PaginaInicial_Cajero.html'))
+        return redirect(url_for('paginaPrinCajero'))
     form = LoginCajeroForm()
     if form.validate_on_submit():
         user = User.get_by_username(form.username.data)
@@ -121,7 +122,7 @@ def loginCajero():
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('loginCajero')
+                next_page = url_for('paginaPrinCajero')
             return redirect(next_page)
     return render_template('loginCajero.html', form=form)
 
