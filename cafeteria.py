@@ -76,7 +76,7 @@ from models import *
 # llamamos los formularios para login, registros y agregar
 # productos
 # ---------------------------------------------------------#
-from forms import LoginCajeroForm, LoginAdminForm
+from forms import LoginCajeroForm, LoginAdminForm, RegistroCajeroForm
 ## ---------------------------------------------------------
 
 
@@ -102,7 +102,8 @@ def loginAdmin():
     form = LoginAdminForm()
     if form.validate_on_submit():
         user = User.get_by_username(form.username.data)
-        if user is not None and user.check_password(form.password.data):
+        only_admin = user.type_user == 'admin'
+        if user is not None and user.check_password(form.password.data) and only_admin:
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
@@ -134,41 +135,39 @@ def olvidaste():
 
 #Crear usuario
 @app.route("/crearusuario",methods=['GET','POST'])
+@login_required
 def crearusuario():
-    if (request.method=="GET"):
-        if 'nombre' in session:
-            return render_template('index.html')
+    form = RegistroCajeroForm()
+    error = None
+    if form.validate_on_submit():
+        name = form.username.data
+        email = form.email.data
+        password = form.password.data
+        password_check = form.password_check.data
+        cedula = form.cedula.data
+        check_email = User.get_by_email(email=email)
+        check_username = User.get_by_username(username=name)
+        check_cedula = User.get_by_cedula(cedula=cedula)
+        if check_email is not None:
+            error = f'El email "{email}" ya está siendo utilizado por otro usuario'
+        elif check_username is not None:
+            error = f'El username "{name}" ya está siendo utilizado por otro usuario'
+        elif check_cedula is not None:
+            error = f'la cedula "{cedula}" ya está siendo utilizado por otro usuario'
+        elif password_check != password_check:
+            error = f'Las contraseñas no coinciden'
         else:
-            return render_template('crearuser.html')
-    else:
-        nombre = request.form['nmNombreRegistro']
-        #correo = request.form['nmCorreoRegistro']
-        password = request.form['nmPasswordRegistro']
-        password_encode = password.encode("utf-8")
-        password_encriptado = bcrypt.hashpw(password_encode, semilla)
-
-        connection = sqlite3.connect(currentdirectory+"\database.db")
-        #Crea el cursor
-        cursor = connection.cursor()
-
-
-        #PREPARA EL QUERY PARA INSERCION
-        #sQuery = "INSERT INTO Login values('{n}',{email},{pwd})".format(n = nombre, email=correo, pwd=password)
-        sQuery = "INSERT INTO login1 values('{n}',{pwd})".format(n = nombre, pwd=password)
-        # Ejecuta la sentencia
-        cursor.execute(sQuery)
-
-        # Ejectura el Commit
-        connection.commit()
-
-        ##Registra la sesion
-
-        session['nombre'] = nombre
-        #session['correo'] = correo
-
-        return redirect(url_for('index'))
-  
-
+            cajero = User()
+            cajero.email = email
+            cajero.username = name
+            cajero.type_user = 'cajero'
+            cajero.set_password(password)
+            cajero.save()
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('paginaPrinAdmin')
+            return redirect(next_page)
+    return render_template('crearuser.html', form=form)
 
 
 @app.route('/send_password',methods=['GET','POST'])
@@ -182,8 +181,10 @@ def send_password():
 
         mail.send(message)
     return render_template('result.html')
+
 ##PAGINA PRINCIPAL DE ADMIN 
 @app.route("/paginaPrinAdmin",methods=['GET','POST'])
+@login_required
 def paginaPrinAdmin():
     return render_template('PaginaInicial_Admin.html')
 
@@ -195,8 +196,38 @@ def paginaPrinCajero():
 
 #Gestion de Cajeros
 @app.route('/gescajeros',methods=['GET','POST'])
+@login_required
 def gescajero():
-    return render_template('GestionCajeros.html')
+    form = RegistroCajeroForm()
+    error = None
+    if form.validate_on_submit():
+        name = form.username.data
+        email = form.email.data
+        password = form.password.data
+        password_check = form.password_check.data
+        cedula = form.cedula.data
+        check_email = User.get_by_email(email=email)
+        check_username = User.get_by_username(username=name)
+        check_cedula = User.get_by_cedula(cedula=cedula)
+        if check_email is not None:
+            error = f'El email "{email}" ya está siendo utilizado por otro usuario'
+        elif check_username is not None:
+            error = f'El username "{name}" ya está siendo utilizado por otro usuario'
+        elif check_cedula is not None:
+            error = f'la cedula "{cedula}" ya está siendo utilizado por otro usuario'
+        elif password_check != password_check:
+            error = f'Las contraseñas no coinciden'
+        else:
+            cajero = User(username=name, email=email, cedula=cedula, type_user='cajero')
+            cajero.set_password(password)
+            cajero.save()
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('paginaPrinAdmin')
+            return redirect(next_page)
+    return render_template('GestionCajeros.html', form=form)
+
+
 #genere otra ruta para Actualizar-Eliminar Cajeros desde GESTIONCAJEROS #D3A
 @app.route("/actuEliCajero",methods=['GET','POST'])
 def actuEliCajero():
