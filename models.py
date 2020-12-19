@@ -158,8 +158,8 @@ class Bill(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
 
     # relationship
-    user = db.relationship('User', backref=db.backref('bills', lazy=True))
-    product = db.relationship('Product', backref=db.backref('bills', lazy=True))
+    # user = db.relationship('User', backref=db.backref('bills', lazy=True))
+    # product = db.relationship('Product', backref=db.backref('bills', lazy=True))
 
     def __repr__(self):
         """[summary]
