@@ -26,11 +26,16 @@
 <div> 
 
     <ul class="user-info">
-    <li><a href="{{ url_for('index') }}">Home</a></li>
     {% if current_user.is_anonymous %}
+        <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('loginCajero') }}">Iniciar sesion como cajero</a></li>
         <li><a href="{{ url_for('loginAdmin') }}">Iniciar sesion como Administrador</a></li>
     {% else %}
+        {%if current_user.type_user == 'admin' %}
+            <li><a href="{{ url_for('paginaPrinAdmin') }}">Home</a></li>
+        {% else %}
+            <li><a href="{{ url_for('paginaPrinCajero') }}">Home</a></li>
+        {% endif %}
         <li>{{ current_user.name }}</li>
         <li><a href="{{ url_for('logout') }}">Logout</a></li>
     {% endif %}

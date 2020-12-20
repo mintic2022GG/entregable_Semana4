@@ -85,6 +85,10 @@ class User(db.Model, UserMixin):
             [type]: [description]
         """
         return User.query.get(_id)
+    
+    @staticmethod
+    def get_all():
+        return User.query.get()
 
     @staticmethod
     def get_by_email(email):
@@ -147,6 +151,22 @@ class Product(db.Model):
         """
         return "Bill {}".format(self.id)
 
+    @staticmethod
+    def get_by_name(name):
+        return Product.query.filter_by(name=name).first()
+
+    def save(self):
+        """ save object inside database,
+        this funcion is able to update data from a user row, or create it if it is necesary
+        """
+        if not self.id:
+            db.session.add(self)
+        db.session.commit()
+
+    @staticmethod
+    def get_all():
+        return Product.query.get()
+
 
 class Bill(db.Model):
     """[summary]
@@ -180,3 +200,15 @@ class Bill(db.Model):
             [type]: [description]
         """
         return "Biil {}".format(self.id)
+
+    def save(self):
+        """ save object inside database,
+        this funcion is able to update data from a user row, or create it if it is necesary
+        """
+        if not self.id:
+            db.session.add(self)
+        db.session.commit()
+
+    @staticmethod
+    def get_all():
+        return Bill.query.get()

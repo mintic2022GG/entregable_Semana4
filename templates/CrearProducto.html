@@ -76,6 +76,7 @@
 
         <section>
             <div class="container">
+                <!--
                 <div class="row">
                    <div>
                     <br><br><br>
@@ -93,6 +94,42 @@
                     <input type="submit" id="Agregar" value="Agregar artículo">
                                             
                 </div>
+                -->
+                
+                <form action="" method="post">
+                  {{ form.hidden_tag() }}
+                  <div>
+                      {{ form.name.label }}
+                      {{ form.name }}<br>
+                      {% for error in form.name.errors %}
+                      <span style="color: red;">{{ error }}</span>
+                      {% endfor %}
+                  </div>
+                  <div>
+                      {{ form.description.label }}
+                      {{ form.description }}<br>
+                      {% for error in form.description.errors %}
+                      <span style="color: red;">{{ error }}</span>
+                      {% endfor %}
+                  </div>
+                  <div>
+                      {{ form.quantity.label }}
+                      {{ form.quantity }}<br>
+                      {% for error in form.quantity.errors %}
+                      <span style="color: red;">{{ error }}</span>
+                      {% endfor %}
+                  </div>
+                  <div>
+                      {{ form.price.label }}
+                      {{ form.price }}<br>
+                      {% for error in form.price.errors %}
+                      <span style="color: red;">{{ error }}</span>
+                      {% endfor %}
+                  </div>
+                  <div>
+                      {{ form.submit() }}
+                  </div>
+                </form>
             </div>
          </div>
         </section>

@@ -4,6 +4,13 @@ from wtforms.validators import DataRequired, Email, Length, ValidationError
 from flask_wtf.file import FileField, FileRequired
 from email_validator import validate_email, EmailNotValidError
 
+"""
+from models import User
+"""
+
+class UsernameValidator(ValueError):
+    pass
+
 
 class NumberValidator(ValueError):
     def __init__(self, message='', *args, **kwargs):
@@ -23,6 +30,11 @@ class EmailValidator(EmailNotValidError):
         try:
             data = field.data
             validate_email(data)
+            """
+            u = User.get_by_email(data)
+            if u is not None:
+                return ValidationError('Emai already exitis') 
+            """
         except EmailNotValidError as enve:
             return ValidationError(enve.__str__())
 
@@ -47,13 +59,15 @@ class RegistroCajeroForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
     password_check = PasswordField('Repeat Password', validators=[DataRequired(),Length(min=8)])
     email = StringField('Email', validators=[EmailValidator()])
-    submit = SubmitField('Login')
+    submit = SubmitField('Agregar Cajero')
 
 
 class AgregarProducto(FlaskForm):
     name = StringField('Nombre', validators=[DataRequired()])
     description = TextAreaField('Descripcion', validators=[DataRequired()])
-    image = FileField('Imagen', validators=[FileRequired()])
-    quantity = FileField('') 
+    # image = FileField('Imagen', validators=[FileRequired()])
+    quantity = StringField('Cantidad', validators=[DataRequired(), NumberValidator()])
+    price = StringField('Precio', validators=[DataRequired(), NumberValidator()])
+    submit = SubmitField('Agregar Producto')
 
 
