@@ -47,7 +47,8 @@ db = SQLAlchemy(app)
 # manejo de las sesiones
 # ----------------------------------------------------------------------------
 login_manager = LoginManager(app)
-login_manager.login_view = "loginAdmin"
+# en caso que se intente acceder a una pagina restringida se renderiza esta pagina
+login_manager.login_view = "index" 
 # ----------------------------------------------------------------------------
 
 
@@ -76,18 +77,19 @@ from models import *
 # llamamos los formularios para login, registros y agregar
 # productos
 # ---------------------------------------------------------#
-from forms import LoginCajeroForm, LoginAdminForm, RegistroCajeroForm
+from forms import LoginCajeroForm, LoginAdminForm, RegistroCajeroForm, AgregarProducto
 ## ---------------------------------------------------------
 
-
-
+# obtiene el usuario de la base de datos
 @login_manager.user_loader
 def load_user(user_id):
-    for user in users:
-        if user.id == int(user_id):
-            return user
-    return None
+    return User.get_by_id(int(user_id))
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    # return "Sesion finalizada con exito"
+    return redirect(url_for('index'))
 
 @app.route("/")
 # @app.route("/login", methods=['GET', 'POST'])
@@ -235,13 +237,49 @@ def actuEliCajero():
 
 #Registro de Productos
 @app.route('/regisproducto',methods=['GET','POST'])
+@login_required
 def regisproducto():
-    return render_template('CrearProducto.html')
+    form = AgregarProducto()
+    error = None
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+        quantity = int(form.quantity.data)
+        price = float(form.price.data)
+        producto = Product.get_by_name(name)
+        if producto is not None:
+            error = f'ya existe un producto con este nombre'
+        else:
+            p = Product(name=name, description=description, quantity=quantity, price=price)
+            p.save()
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('paginaPrinCajero')
+            return redirect(next_page)
+    return render_template('CrearProducto.html', form=form)
 
 #Crear Productos
 @app.route('/crearproducto',methods=['GET','POST'])
+@login_required
 def crearproducto():
-    return render_template('CrearProducto.html')
+    form = AgregarProducto()
+    error = None
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+        quantity = int(form.quantity.data)
+        price = float(form.price.data)
+        producto = Product.get_by_name(name)
+        if producto is not None:
+            error = f'ya existe un producto con este nombre'
+        else:
+            p = Product(name=name, description=description, quantity=quantity, price=price)
+            p.save()
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('paginaPrinCajero')
+            return redirect(next_page)
+    return render_template('CrearProducto.html', form=form)
 
 #Actualizar y Eliminar Producto
 @app.route('/actelimproducto',methods=['GET','POST'])
@@ -258,11 +296,17 @@ def gestionventas():
 def buscarproducto():
     return render_template('Buscar.html')
 
+@app.route('/listacajeros', methods=['GET', 'POST'])
+@login_required
+def listaCajeros():
+    return "lista cajeros"
+
+@app.route('/listaProductos', methods=['GET', 'POST'])
+@login_required
+def listaProductos():
+    return "lista productos"
+
 if __name__ == '__main__':
     #Lanzar el servidor
     app.run(port=5000,debug=True)
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
