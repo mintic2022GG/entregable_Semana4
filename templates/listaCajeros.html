@@ -1,0 +1,59 @@
+
+{% extends "basic_template.html" %}
+
+{% block title %}Registro Usuario{% endblock %}
+
+{% block style %} <link rel="stylesheet" href="../static/CSS/style_Gesti_Caje.css"> {% endblock %}
+
+{% block content %}
+
+<div class="d-flex" id="content-wrapper">
+
+{% include 'sidebar.html'%}
+
+<div class="w-100">
+{% include 'nabar.html' %}
+
+
+<div class="d-flex" id="content-wrapper">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <table class="table table-hover table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Cedula</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+                {% for row in employees %}
+                <tr>
+                    <td>{{row.id}}</td>
+                    <td>{{row.username}}</td>
+                    <td>{{row.cedula}}</td>
+                    <td>{{row.email}}</td>
+                    <td>{{row.type_user}}</td>
+                    <td>
+                        <!-- <a href="/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Editar</a>-->
+                        <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Eliminar</a>
+                    </td>
+                </tr>
+
+                {% endfor%}
+            
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -86,9 +86,13 @@ class User(db.Model, UserMixin):
         """
         return User.query.get(_id)
     
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @staticmethod
     def get_all():
-        return User.query.get()
+        return User.query.all()
 
     @staticmethod
     def get_by_email(email):

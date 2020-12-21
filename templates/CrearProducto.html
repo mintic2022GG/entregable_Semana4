@@ -7,57 +7,12 @@
 {% block content %}
 <div class="d-flex" id="content-wrapper">
 
-  <!-- Sidebar -->
-  <div id="sidebar-container">
-      <div class="logo">
-          <h3 class="text-light font-weight-bold mb-0">Cafeteria Brioche</h3> 
-          <img src="../static/IMAGENES/Panaderia.png" width="80" height="100" class="img-fluid rounded-circle avatar mr-2"
-                alt="https://generated.photos/" />
-      </div>
-      <div class="menu"><br><br>
-          
-          
-
-          <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/actelimproducto">
-              Actualizar o Eliminar producto</a><br>
-
-          <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/paginaPrinCajero">
-              Volver a Inicio </a><br>
-      </div>
-  </div>
-  <!-- Fin sidebar -->
+  {% include 'sidebar.html' %}
 
   <div class="w-100">
 
    <!-- Navbar -->
-   <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <div class="container">
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item dropdown">
-              <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../static/IMAGENES/Login-usuario.png" width="40" height="60" class="img-fluid rounded-circle avatar mr-2"
-                alt="https://generated.photos/" />
-              Usuario administrador
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Mi perfil</a>
-                <a class="dropdown-item" href="#">Mis Ventas</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Cerrar sesión</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+   {% include 'nabar.html' %}
     <!-- Fin Navbar -->
 
   <!-- Page Content -->

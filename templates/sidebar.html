@@ -1,0 +1,33 @@
+{% block sidebar %}
+
+<div id="sidebar-container">
+    <div class="logo">
+        <h3 class="text-light font-weight-bold mb-0">Cafeteria Brioche</h3> 
+        <img src="../static/IMAGENES/Panaderia.png" width="80" height="100" class="img-fluid rounded-circle avatar mr-2"
+              alt="" />
+    </div>
+    <div class="menu"><br><br>
+        {% if current_user.type_user == 'admin' %}
+        
+            &nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="{{ url_for('gescajero') }}">
+            Crear Cajero </a><br><br>
+            &nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="{{ url_for('listaCajeros') }}">
+                Lista Cajero </a><br><br>
+            &nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="{{ url_for('paginaPrinAdmin') }}">
+            Volver a Incio</a><br>
+        
+        {% else %}
+        
+            &nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/crearproducto"></i>
+            Crear Producto </a><br><br>
+            &nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/actelimproducto"></i>
+            Actualizar Productos</a><br><br>
+            &nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/gestionventas"></i>
+            Gestionar Ventas </a><br>
+
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %}

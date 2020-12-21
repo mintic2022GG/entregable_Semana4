@@ -8,28 +8,13 @@
 <div class="d-flex" id="content-wrapper">
 
   <!-- Sidebar -->
-  <div id="sidebar-container">
-      <div class="logo">
-          <h3 class="text-light font-weight-bold mb-0">Cafeteria Brioche</h3> 
-          <img src="../static/IMAGENES/Panaderia.png" width="80" height="100" class="img-fluid rounded-circle avatar mr-2"
-                alt="" />
-      </div>
-      <div class="menu"><br><br>
-          
-          
-
-          <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/actuEliCajero">
-              Actualizar o Eliminar Cajero</a><br>
-
-          <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/paginaPrinAdmin">
-              Volver a Inicio </a><br>
-      </div>
-  </div>
+  {% include 'sidebar.html' %}
   <!-- Fin sidebar -->
 
   <div class="w-100">
-
+    {% include 'nabar.html' %}
    <!-- Navbar -->
+   <!--
    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <div class="container">
 
@@ -58,6 +43,7 @@
         </div>
       </div>
     </nav>
+  -->
     <!-- Fin Navbar -->
 
   <!-- Page Content -->

@@ -296,15 +296,27 @@ def gestionventas():
 def buscarproducto():
     return render_template('Buscar.html')
 
-@app.route('/listacajeros', methods=['GET', 'POST'])
-@login_required
-def listaCajeros():
-    return "lista cajeros"
-
 @app.route('/listaProductos', methods=['GET', 'POST'])
 @login_required
 def listaProductos():
     return "lista productos"
+
+
+@app.route('/listaCajeros',methods=['GET','POST'])
+@login_required
+def listaCajeros():
+    empleados = [ item for item in User.query.all() if item.type_user != 'admin']
+    print(empleados)
+    return render_template('listaCajeros.html', employees=empleados)
+
+
+@app.route('/deleteuser/<int:id>',methods=['GET','POST'])
+@login_required
+def delete_user():
+    user = User.get_by_id(id)
+    user.delete()
+    return redirect(url_for('listaCajeros'))
+
 
 if __name__ == '__main__':
     #Lanzar el servidor

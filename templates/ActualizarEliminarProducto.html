@@ -7,25 +7,7 @@
 {% block content %}
 <div class="d-flex" id="content-wrapper">
 
-  <!-- Sidebar -->
-  <div id="sidebar-container">
-      <div class="logo">
-          <h3 class="text-light font-weight-bold mb-0">Cafeteria Brioche</h3> 
-          <img src="../static/IMAGENES/Panaderia.png" width="80" height="100" class="img-fluid rounded-circle avatar mr-2"
-                alt="https://generated.photos/" />
-      </div>
-      <div class="menu"><br><br>
-          
-          &nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/crearproducto">
-              Crear producto </a><br>
-
-          <br>&nbsp;&nbsp;<a class="text-light font-weight-bold mb-0" href="/paginaPrinCajero">
-              Volver a Inicio</a><br>
-
-          
-      </div>
-  </div>
-  <!-- Fin sidebar -->
+  {% include 'sidebar.html' %}
 
   <div class="w-100">
 
